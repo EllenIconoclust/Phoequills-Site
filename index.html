@@ -3,6 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!-- Animated Quill SVG -->
+<div style="text-align: center; margin-bottom: 10px;">
+  <svg width="80" height="80" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" class="quill-animate">
+    <path d="M10 54C12 42 25 20 50 10C45 25 35 35 20 45L10 54Z" fill="#d63384" stroke="#b30059" stroke-width="2"/>
+    <path d="M10 54L14 58" stroke="#b30059" stroke-width="2"/>
+    <path d="M14 58L18 52" stroke="#b30059" stroke-width="2"/>
+  </svg>
+</div>
+
+<style>
+  .quill-animate {
+    animation: float 2.5s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-6px); }
+    100% { transform: translateY(0); }
+  }
+</style>
   <title>Phoequills | Where Stories Rise from Ashes</title>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
   <style>
