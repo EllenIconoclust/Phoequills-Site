@@ -262,11 +262,28 @@ Lives on in light, and always in you.
     <input type="text" name="coupon" placeholder="Coupon Code (Optional)" style="padding: 10px; width: 80%; max-width: 400px; margin-bottom: 10px; border-radius: 5px;"><br>
     <input type="submit" value="Submit" style="padding: 10px 20px; background-color: #b30059; color: white; border: none; border-radius: 6px; cursor: pointer;">
   </form>
+
+<p id="specialMessage" style="color: green; font-weight: bold;"></p>
 </section>
 
   <footer>
     &copy; 2025 Phoequills | Designed by Ellen Icon | All rights reserved.
   </footer>
+<script>
+  const form = document.getElementById("order-form");
+  const couponInput = document.getElementById("coupon");
+  const message = document.getElementById("specialMessage");
+
+  form.addEventListener("submit", function(event) {
+    const coupon = couponInput.value.trim().toLowerCase();
+
+    if (coupon === "ellenfriend005") {
+      message.textContent = "🎉 Welcome, Ellen’s special friend! You've unlocked something magical.";
+    } else {
+      message.textContent = "";
+    }
+  });
+</script>
 
 </body>
 </html>
