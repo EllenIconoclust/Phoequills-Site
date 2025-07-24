@@ -144,6 +144,21 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+  .btn {
+  display: inline-block;
+  background-color: #b30059;
+  color: white;
+  padding: 12px 24px;
+  margin-top: 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #8f0045;
+}
   </style>
 </head>
 <body>
@@ -151,6 +166,7 @@
   <header>
     <h1>Phoequills</h1>
     <p class="tagline">Where Stories Rise from Ashes</p>
+    <a href="#order-section" class="btn">Order Now</a>
     <img src="Mainquillconcept.png" alt="Phoenix Quill Concept">
   </header>
 
@@ -233,6 +249,20 @@ Lives on in light, and always in you.
       <p><strong>Instagram:</strong> <a href="https://instagram.com/pravin_s_elisa" target="_blank">@pravin_s_elisa</a></p>
     </div>
   </section>
+<section id="order-section">
+  <h2>Order Your Copy</h2>
+  <img src="your-book-cover.png" alt="Book Cover" style="max-width: 300px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.2); margin-bottom: 20px;">
+
+  <br>
+  <a href="#order-form" class="btn">Order Now</a>
+
+  <form id="order-form" action="https://formspree.io/f/your-form-id" method="POST" style="margin-top: 30px;">
+    <h3>Enter Your Email</h3>
+    <input type="email" name="email" placeholder="Your Email" required style="padding: 10px; width: 80%; max-width: 400px; margin-bottom: 10px; border-radius: 5px;"><br>
+    <input type="text" name="coupon" placeholder="Coupon Code (Optional)" style="padding: 10px; width: 80%; max-width: 400px; margin-bottom: 10px; border-radius: 5px;"><br>
+    <input type="submit" value="Submit" style="padding: 10px 20px; background-color: #b30059; color: white; border: none; border-radius: 6px; cursor: pointer;">
+  </form>
+</section>
 
   <footer>
     &copy; 2025 Phoequills | Designed by Ellen Icon | All rights reserved.
