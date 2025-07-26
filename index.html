@@ -11,6 +11,16 @@
     <path d="M14 58L18 52" stroke="#b30059" stroke-width="2"/>
   </svg>
 </div>
+body {
+  margin: 0;
+  font-family: 'Merriweather', serif;
+  background: linear-gradient(-45deg, #000000, #0d47a1, #000000, #1a237e);
+  background-size: 400% 400%;
+  animation: gradientFlow 15s ease infinite;
+  color: #ffffff;
+  line-height: 1.6;
+  transition: background 0.3s, color 0.3s;
+}
 
 <style>
   .quill-animate {
@@ -22,6 +32,17 @@
     50%  { transform: translateY(-6px); }
     100% { transform: translateY(0); }
   }
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 </style>
   <title>Phoequills | Where Stories Rise from Ashes</title>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
