@@ -190,6 +190,23 @@ body {
     background-position: 0% 50%;
   }
 }
+.price-tag {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #ff9999;
+  margin-right: 10px;
+}
+
+.discounted-price {
+  color: #00ffcc;
+  font-size: 24px;
+}
   </style>
 </head>
 <body>
@@ -287,6 +304,10 @@ Lives on in light, and always in you.
 
   <br>
   <a href="#order-form" class="btn">Order Now</a>
+<div class="price-tag">
+  <span class="original-price">₹216</span>
+  <span class="discounted-price">₹120</span>
+</div>
 
   <form id="order-form" action="https://formspree.io/f/xzzvenke" method="POST" style="margin-top: ;">
     <h3>Enter Your Email</h3>
