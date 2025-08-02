@@ -1,364 +1,1220 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<!-- Animated Quill SVG -->
-<div style="text-align: center; margin-bottom: 10px;">
-  <svg width="80" height="80" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" class="quill-animate">
-    <path d="M10 54C12 42 25 20 50 10C45 25 35 35 20 45L10 54Z" fill="#ffd700" stroke="#b30059" stroke-width="2"/>
-    <path d="M10 54L14 58" stroke="#b30059" stroke-width="2"/>
-    <path d="M14 58L18 52" stroke="#b30059" stroke-width="2"/>
-  </svg>
-</div>
-
-<style>
-  .quill-animate {
-    animation: float 2.5s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%   { transform: translateY(0); }
-    50%  { transform: translateY(-6px); }
-    100% { transform: translateY(0); }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Phoequills | Where Stories Rise from Ashes</title>
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary: #b30059;
+      --primary-dark: #8f0045;
+      --secondary: #ffd700;
+      --accent: #00ffcc;
+      --text-light: #f5f5f5;
+      --text-dark: #222;
+      --bg-light: #ffffff;
+      --bg-dark: #121212;
+      --card-bg-light: #f8f8f8;
+      --card-bg-dark: #1e1e1e;
+      --nav-bg-light: rgba(255, 255, 255, 0.95);
+      --nav-bg-dark: rgba(30, 30, 30, 0.95);
+      --transition: all 0.3s ease;
+    }
+
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
 
-body {
-  margin: 0;
-  font-family: 'Merriweather', serif;
-  background: #ffffff;
-  color: #000000;
-  line-height: 1.6;
-  transition: background 0.3s, color 0.3s;
-}
+    body {
+      font-family: 'Playfair Display', serif;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.7;
+      transition: var(--transition);
+    }
 
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+    }
+
+    /* Header Styles */
     header {
+      position: relative;
       text-align: center;
-      padding: 80px 20px;
-      background: transparent;
-      animation: fadeIn 1.5s ease-in;
+      padding: 120px 20px 80px;
+      background: linear-gradient(135deg, rgba(179, 0, 89, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+      overflow: hidden;
+    }
+
+    .dark-mode header {
+      background: linear-gradient(135deg, rgba(179, 0, 89, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23b30059" fill-opacity="0.05" d="M30,10L50,30L70,10L90,30L70,50L90,70L70,90L50,70L30,90L10,70L30,50L10,30L30,10Z"/></svg>');
+      opacity: 0.1;
+      z-index: -1;
     }
 
     header h1 {
-      font-size: 4em;
-      margin-bottom: 10px;
+      font-size: 4.5rem;
+      margin-bottom: 15px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: 2px;
     }
 
     .tagline {
-      font-size: 1.5em;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.5rem;
       font-style: italic;
-      color: #f0c300;
+      color: var(--secondary);
+      margin-bottom: 30px;
+      letter-spacing: 1px;
+    }
+
+    /* Navigation */
+    .nav-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: var(--nav-bg-light);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+    }
+
+    .dark-mode .nav-container {
+      background: var(--nav-bg-dark);
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
     }
 
     nav {
-      background: #eee;
-      text-align: center;
-      padding: 15px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 5%;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
-    nav a {
-      color: #000;
+    .logo {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--primary);
       text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
     }
 
+    .dark-mode .logo {
+      color: var(--secondary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      color: var(--text-dark);
+      text-decoration: none;
+      position: relative;
+      padding: 5px 0;
+      transition: var(--transition);
+    }
+
+    .dark-mode .nav-links a {
+      color: var(--text-light);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-size: 1.8rem;
+    }
+
+    .dark-mode .hamburger {
+      color: var(--secondary);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 80%;
+      max-width: 350px;
+      height: 100vh;
+      background: var(--bg-light);
+      z-index: 1001;
+      padding: 30px;
+      box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+      overflow-y: auto;
+    }
+
+    .dark-mode .mobile-menu {
+      background: var(--bg-dark);
+      box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .mobile-menu.active {
+      left: 0;
+    }
+
+    .mobile-menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .close-menu {
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    .dark-mode .close-menu {
+      color: var(--secondary);
+    }
+
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .mobile-nav-links a {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      color: var(--text-dark);
+      text-decoration: none;
+      font-size: 1.2rem;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .dark-mode .mobile-nav-links a {
+      color: var(--text-light);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Dark Mode Toggle */
+    .theme-toggle {
+      position: relative;
+      width: 50px;
+      height: 26px;
+      border-radius: 50px;
+      background: var(--primary);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 0 5px;
+      transition: var(--transition);
+    }
+
+    .dark-mode .theme-toggle {
+      background: var(--secondary);
+    }
+
+    .theme-toggle i {
+      position: absolute;
+      font-size: 16px;
+      color: white;
+      transition: var(--transition);
+    }
+
+    .fa-sun {
+      opacity: 1;
+      left: 5px;
+    }
+
+    .dark-mode .fa-sun {
+      opacity: 0;
+      left: -10px;
+    }
+
+    .fa-moon {
+      opacity: 0;
+      right: 5px;
+    }
+
+    .dark-mode .fa-moon {
+      opacity: 1;
+      right: -10px;
+    }
+
+    .toggle-ball {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      left: 3px;
+      transition: var(--transition);
+    }
+
+    .dark-mode .toggle-ball {
+      left: calc(100% - 23px);
+    }
+
+    /* Main Content */
     section {
-      max-width: 1000px;
-      margin: auto;
-      padding: 60px 20px;
-      animation: fadeIn 1.2s ease-in;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 20px;
     }
 
     section h2 {
-      font-size: 2.5em;
-      margin-bottom: 20px;
-      color: #b30059;
+      font-size: 2.8rem;
+      margin-bottom: 40px;
+      text-align: center;
+      position: relative;
+      color: var(--primary);
     }
 
+    .dark-mode section h2 {
+      color: var(--secondary);
+    }
+
+    section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+    }
+
+    /* Featured Books */
     .featured-books {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 30px;
-      margin-top: 20px;
+      margin-top: 40px;
     }
 
     .book {
-      flex: 1 1 45%;
-      background-color: #f5f5f5;
-      padding: 20px;
-      border-radius: 8px;
+      background: var(--card-bg-light);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dark-mode .book {
+      background: var(--card-bg-dark);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .book:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .dark-mode .book:hover {
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
     }
 
     .book h3 {
-      color: #000;
-      margin-bottom: 10px;
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+
+    .dark-mode .book h3 {
+      color: var(--secondary);
     }
 
     .book p {
-      color: #333;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+    }
+
+    .dark-mode .book p {
+      color: var(--text-light);
+    }
+
+    .book::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--primary), var(--secondary));
+    }
+
+    /* Weekly Update */
+    .weekly-update {
+      background: var(--card-bg-light);
+      border-left: 5px solid var(--primary);
+      padding: 40px;
+      border-radius: 12px;
+      margin-top: 50px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .dark-mode .weekly-update {
+      background: var(--card-bg-dark);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .weekly-update pre {
+      font-family: 'Playfair Display', serif;
+      white-space: pre-wrap;
+      color: var(--text-dark);
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    .dark-mode .weekly-update pre {
+      color: var(--text-light);
+    }
+
+    .weekly-update small {
+      display: block;
+      margin-top: 20px;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-dark);
+      opacity: 0.8;
+    }
+
+    .dark-mode .weekly-update small {
+      color: var(--text-light);
+    }
+
+    /* Testimonials */
+    .testimonials-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
     }
 
     .testimonial {
-      background: #f0f0f0;
+      background: var(--card-bg-light);
       padding: 30px;
-      border-radius: 10px;
-      margin-top: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+    .dark-mode .testimonial {
+      background: var(--card-bg-dark);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .testimonial::before {
+      content: '"';
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      font-size: 5rem;
+      font-family: 'Playfair Display', serif;
+      color: var(--primary);
+      opacity: 0.1;
+      line-height: 1;
+    }
+
+    .dark-mode .testimonial::before {
+      color: var(--secondary);
     }
 
     .testimonial p {
       font-style: italic;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      position: relative;
+      z-index: 1;
     }
 
+    .testimonial-author {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      color: var(--primary);
+      text-align: right;
+    }
+
+    .dark-mode .testimonial-author {
+      color: var(--secondary);
+    }
+
+    /* Contact Section */
     .contact-info {
-      background-color: #f5f5f5;
-      padding: 20px;
-      border-radius: 10px;
+      background: var(--card-bg-light);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      max-width: 800px;
+      margin: 40px auto 0;
+    }
+
+    .dark-mode .contact-info {
+      background: var(--card-bg-dark);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
     .contact-info p {
-      margin: 10px 0;
+      margin-bottom: 15px;
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    .weekly-update {
-      background: #fff8fb;
-      border-left: 5px solid #b30059;
-      padding: 40px 30px;
-      margin-top: 50px;
-      border-radius: 12px;
+    .contact-info i {
+      color: var(--primary);
+      font-size: 1.2rem;
     }
 
-    .weekly-update pre {
-      font-family: 'Merriweather', serif;
-      white-space: pre-wrap;
-      color: #222;
-      font-size: 1.1em;
+    .dark-mode .contact-info i {
+      color: var(--secondary);
     }
 
-    a {
-      color: #b30059;
+    /* Order Section */
+    .order-section {
+      text-align: center;
     }
 
-    img {
-      max-width: 100%;
+    .book-cover {
+      max-width: 300px;
       border-radius: 10px;
-      margin-top: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      margin-bottom: 30px;
+      transition: var(--transition);
     }
 
+    .book-cover:hover {
+      transform: scale(1.03);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .price-tag {
+      margin: 20px 0;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .original-price {
+      text-decoration: line-through;
+      color: #ff9999;
+      margin-right: 10px;
+    }
+
+    .discounted-price {
+      color: var(--accent);
+      font-size: 2rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 15px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: var(--transition);
+      box-shadow: 0 5px 15px rgba(179, 0, 89, 0.3);
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(179, 0, 89, 0.4);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(255, 255, 255, 0) 60%
+      );
+      transform: rotate(30deg);
+      transition: var(--transition);
+    }
+
+    .btn:hover::after {
+      left: 100%;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      box-shadow: none;
+    }
+
+    .dark-mode .btn-outline {
+      border-color: var(--secondary);
+      color: var(--secondary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .dark-mode .btn-outline:hover {
+      background: var(--secondary);
+      color: var(--text-dark);
+    }
+
+    /* Forms */
+    form {
+      max-width: 500px;
+      margin: 30px auto 0;
+      background: var(--card-bg-light);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .dark-mode form {
+      background: var(--card-bg-dark);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    form h3 {
+      margin-bottom: 20px;
+      color: var(--primary);
+      text-align: center;
+    }
+
+    .dark-mode form h3 {
+      color: var(--secondary);
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 15px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      transition: var(--transition);
+    }
+
+    .dark-mode input,
+    .dark-mode textarea {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(179, 0, 89, 0.2);
+    }
+
+    .dark-mode input:focus,
+    .dark-mode textarea:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+    }
+
+    /* Countdown */
+    #countdown {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .dark-mode #countdown {
+      color: var(--secondary);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1002;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: var(--bg-light);
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .dark-mode .modal-content {
+      background: var(--bg-dark);
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--primary);
+    }
+
+    .dark-mode .close-modal {
+      color: var(--secondary);
+    }
+
+    /* Footer */
     footer {
       text-align: center;
-      padding: 30px;
-      font-size: 0.9em;
-      background-color: #f1f1f1;
-      color: #555;
+      padding: 40px 20px;
+      background: var(--card-bg-light);
+      color: var(--text-dark);
+      font-family: 'Montserrat', sans-serif;
+      margin-top: 60px;
     }
 
+    .dark-mode footer {
+      background: var(--card-bg-dark);
+      color: var(--text-light);
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .social-links a {
+      color: var(--primary);
+      font-size: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .dark-mode .social-links a {
+      color: var(--secondary);
+    }
+
+    .social-links a:hover {
+      transform: translateY(-3px);
+      color: var(--primary-dark);
+    }
+
+    .dark-mode .social-links a:hover {
+      color: var(--accent);
+    }
+
+    /* Animations */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-  .btn {
-  display: inline-block;
-  background-color: #b30059;
-  color: white;
-  padding: 12px 24px;
-  margin-top: 20px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background 0.3s ease;
-}
 
-.btn:hover {
-  background-color: #8f0045;
-}
-@keyframes gradientBG {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-.price-tag {
-  margin-top: 10px;
-  font-size: 20px;
-  font-weight: bold;
-  color: #fff;
-}
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
 
-.original-price {
-  text-decoration: line-through;
-  color: #ff9999;
-  margin-right: 10px;
-}
+    .animated {
+      animation: fadeIn 1s ease-in;
+    }
 
-.discounted-price {
-  color: #00ffcc;
-  font-size: 24px;
-}
+    .quill-animate {
+      animation: float 3s ease-in-out infinite;
+      margin-bottom: 30px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      header h1 {
+        font-size: 3.5rem;
+      }
+      
+      .tagline {
+        font-size: 1.3rem;
+      }
+      
+      section h2 {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .hamburger {
+        display: block;
+      }
+      
+      header h1 {
+        font-size: 3rem;
+      }
+      
+      .tagline {
+        font-size: 1.2rem;
+      }
+      
+      section {
+        padding: 60px 20px;
+      }
+      
+      section h2 {
+        font-size: 2.2rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      header h1 {
+        font-size: 2.5rem;
+      }
+      
+      .tagline {
+        font-size: 1.1rem;
+      }
+      
+      section h2 {
+        font-size: 2rem;
+      }
+      
+      .btn {
+        padding: 12px 25px;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Navigation -->
+  <div class="nav-container">
+    <nav>
+      <button class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </button>
+      <a href="#" class="logo">Phoequills</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#featured">Works</a>
+        <a href="#weekly">Updates</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="nav-buttons">
+        <button class="btn btn-outline" id="registerBtn">Register</button>
+        <button class="theme-toggle" id="themeToggle">
+          <i class="fas fa-sun"></i>
+          <i class="fas fa-moon"></i>
+          <span class="toggle-ball"></span>
+        </button>
+      </div>
+    </nav>
+  </div>
 
-  <header>
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+      <h3>Phoequills</h3>
+      <button class="close-menu" id="closeMenu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="#about">About</a>
+      <a href="#featured">Featured Works</a>
+      <a href="#weekly">Weekly Updates</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#contact">Contact</a>
+      <a href="#" id="mobileRegisterBtn">Register</a>
+    </div>
+    <button class="btn" style="width: 100%;" id="orderMobileBtn">Pre-Order "The Dying Detective"</button>
+  </div>
+
+  <!-- Register Modal -->
+  <div class="modal" id="registerModal">
+    <div class="modal-content">
+      <button class="close-modal" id="closeRegisterModal">
+        <i class="fas fa-times"></i>
+      </button>
+      <h3>Register as a Reader</h3>
+      <form id="registerForm" action="https://formspree.io/f/xzzvenke" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <input type="text" name="username" placeholder="Choose a Username" required>
+        <textarea name="message" placeholder="Why do you want to join Phoequills?"></textarea>
+        <button type="submit" class="btn">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="animated">
+    <div style="text-align: center; margin-bottom: 20px;">
+      <svg width="80" height="80" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" class="quill-animate">
+        <path d="M10 54C12 42 25 20 50 10C45 25 35 35 20 45L10 54Z" fill="#ffd700" stroke="#b30059" stroke-width="2"/>
+        <path d="M10 54L14 58" stroke="#b30059" stroke-width="2"/>
+        <path d="M14 58L18 52" stroke="#b30059" stroke-width="2"/>
+      </svg>
+    </div>
     <h1>Phoequills</h1>
     <p class="tagline">Where Stories Rise from Ashes</p>
-<div id="countdown" style="font-size: 20px; font-weight: bold; color: #b30059; margin-top: 20px;"></div>
+    <div id="countdown">⏳ Offer ends in: 7d 12h 45m 30s</div>
     <a href="#order-section" class="btn">Pre-Order "The Dying Detective"</a>
-    <img src="Mainquillconcept.png" alt="Phoenix Quill Concept">
+    <img src="Mainquillconcept.png" alt="Phoenix Quill Concept" style="max-width: 400px; margin-top: 40px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);">
   </header>
 
-  <nav>
-    <a href="#about">About</a>
-    <a href="#featured">Featured Work</a>
-    <a href="#weekly">Weekly Update</a>
-    <a href="#testimonials">Testimonials</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
-  <section id="about">
+  <!-- Main Content -->
+  <section id="about" class="animated">
     <h2>About the Author</h2>
     <p>Welcome to <strong>Phoequills</strong>, the official storytelling space of Ellen Icon. I'm a passionate writer who believes in the transformative power of words. I craft stories that rise from darkness — tales that reflect the burning heart of human experience, redemption, and hope.</p>
     <p>My journey began not with a pen, but with silence — a silence that demanded a voice. Through <em>Shadow Love</em>, <em>The Dying Detective</em>, and future releases, I bring those silent emotions into the light.</p>
-    <p>Phoequills is more than a name. It’s a belief: that even from ashes, a phoenix — or a writer — can rise again.</p>
+    <p>Phoequills is more than a name. It's a belief: that even from ashes, a phoenix — or a writer — can rise again.</p>
   </section>
 
-  <section id="featured">
+  <section id="featured" class="animated">
     <h2>Featured Work</h2>
     <div class="featured-books">
       <div class="book">
         <h3>Shadow Love</h3>
         <p>A love story born in darkness, tested by fate, and held together by two souls who refused to give up. Inspired by true events, Shadow Love captures raw emotion and real connection.</p>
+        <a href="#" class="btn-outline">Learn More</a>
       </div>
       <div class="book">
         <h3>The Dying Detective</h3>
-        <p>A psychological mystery following a 21-year-old Indian detective in Paris. Rejected by his idol, he unravels a deadly web of lies while trying to prove himself in a world that won’t listen.</p>
+        <p>A psychological mystery following a 21-year-old Indian detective in Paris. Rejected by his idol, he unravels a deadly web of lies while trying to prove himself in a world that won't listen.</p>
+        <a href="#order-section" class="btn-outline">Pre-Order Now</a>
       </div>
     </div>
   </section>
 
-  <section id="weekly" class="weekly-update">
+  <section id="weekly" class="weekly-update animated">
     <h2>Weekly Update</h2>
-    <img src="phoequills.png" alt="Phoenix rising" />
+    <img src="phoequills.png" alt="Phoenix rising" style="max-width: 100%; border-radius: 10px; margin-bottom: 30px;">
     <pre>
 <b>TITLE:</b> TIMELESS LOVE
 
 Our love is connected by hearts,  
 No longer two separate parts.  
 The moon, so purely true,  
-I’ll paint it a deeper blue for you.  
+I'll paint it a deeper blue for you.  
 
 The bond we sealed with a kiss,  
 A lifelong, unbroken bliss.  
 In hell, where betrayal and shadow stays,  
-It’s there our fearless love still plays.  
+It's there our fearless love still plays.  
 
 Through storms that tore the skies apart,  
 You held the pieces of my heart.  
 In silence, in laughter, in endless days,  
-We danced through time’s uncertain maze.  
+We danced through time's uncertain maze.  
 
 So let the world forget our name,  
-We’ll burn as stars just the same.  
+We'll burn as stars just the same.  
 For love like ours, both wild and true,  
 Lives on in light, and always in you.
 
-
-
-<small><b>Last Updated:</b>24 July 2025, Thursday</small>
-<small><b>Will be Updated on:</b>26 July 2025, Saturday</small>
+<small><b>Last Updated:</b> 24 July 2025, Thursday</small>
+<small><b>Will be Updated on:</b> 26 July 2025, Saturday</small>
     </pre>
   </section>
 
-  <section id="testimonials">
+  <section id="testimonials" class="animated">
     <h2>What Readers Say</h2>
-    <div class="testimonial">
-      <p>"Ellen’s writing isn't just words — it’s fire. His stories feel like someone finally saying what you've always felt but never knew how to express." — Madelyn, Editor</p>
-    </div>
-    <div class="testimonial">
-      <p>"Shadow Love made me cry. The emotions were real, and the characters unforgettable. I can’t wait for Shadow Love 2." — Reader on Wattpad</p>
+    <div class="testimonials-container">
+      <div class="testimonial">
+        <p>"Ellen's writing isn't just words — it's fire. His stories feel like someone finally saying what you've always felt but never knew how to express."</p>
+        <p class="testimonial-author">— Madelyn, Editor</p>
+      </div>
+      <div class="testimonial">
+        <p>"Shadow Love made me cry. The emotions were real, and the characters unforgettable. I can't wait for Shadow Love 2."</p>
+        <p class="testimonial-author">— Reader on Wattpad</p>
+      </div>
+      <div class="testimonial">
+        <p>"The Dying Detective kept me up all night! The plot twists were unpredictable yet perfectly crafted. Ellen Icon is a master storyteller."</p>
+        <p class="testimonial-author">— Book Blogger</p>
+      </div>
     </div>
   </section>
 
-  <section id="contact">
+  <section id="contact" class="animated">
     <h2>Contact</h2>
     <div class="contact-info">
-      <p><strong>Email:</strong> <a href="mailto:elisapravin@gmail.com">elisapravin@gmail.com</a></p>
-      <p><strong>Instagram:</strong> <a href="https://instagram.com/pravin_s_elisa" target="_blank">@pravin_s_elisa</a></p>
+      <p><i class="fas fa-envelope"></i> <strong>Email:</strong> <a href="mailto:elisapravin@gmail.com">elisapravin@gmail.com</a></p>
+      <p><i class="fab fa-instagram"></i> <strong>Instagram:</strong> <a href="https://instagram.com/pravin_s_elisa" target="_blank">@pravin_s_elisa</a></p>
+      <p><i class="fab fa-twitter"></i> <strong>Twitter:</strong> <a href="https://twitter.com/example" target="_blank">@ellenicon_writes</a></p>
+      <p><i class="fab fa-wattpad"></i> <strong>Wattpad:</strong> <a href="https://wattpad.com/example" target="_blank">Phoequills</a></p>
     </div>
   </section>
-<section id="order-section">
-  <h2>Order Your Copy</h2>
-  <img src="Dyingdetective_cover.jpg" alt="Book Cover" style="max-width: 300px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.2); margin-bottom: 20px;">
 
-  <br>
-  <a href="#order-form" class="btn">Order Now</a>
-<div class="price-tag">
-  <span class="original-price">₹216</span>
-  <span class="discounted-price">₹120</span>
-</div>
+  <section id="order-section" class="order-section animated">
+    <h2>Order Your Copy</h2>
+    <img src="Dyingdetective_cover.jpg" alt="Book Cover" class="book-cover">
+    <div class="price-tag">
+      <span class="original-price">₹216</span>
+      <span class="discounted-price">₹120</span>
+    </div>
+    <p>Limited time offer! Get "The Dying Detective" at 45% off</p>
+    <a href="#order-form" class="btn">Order Now</a>
 
-  <form id="order-form" action="https://formspree.io/f/xzzvenke" method="POST" style="margin-top: ;">
-    <h3>Enter Your Email</h3>
-    <input type="email" name="email" placeholder="Your Email" required style="padding: 10px; width: 80%; max-width: 400px; margin-bottom: 10px; border-radius: 5px;"><br>
-    <input type="text" name="coupon" placeholder="Coupon Code (Optional)" style="padding: 10px; width: 80%; max-width: 400px; margin-bottom: 10px; border-radius: 5px;"><br>
-    <input type="submit" value="Submit" style="padding: 10px 20px; background-color: #b30059; color: white; border: none; border-radius: 6px; cursor: pointer;">
-  </form>
+    <form id="order-form" action="https://formspree.io/f/xzzvenke" method="POST">
+      <h3>Pre-Order Form</h3>
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <input type="text" name="address" placeholder="Shipping Address" required>
+      <input type="text" name="coupon" placeholder="Coupon Code (Optional)">
+      <button type="submit" class="btn">Confirm Pre-Order</button>
+    </form>
 
-<p id="specialMessage" style="color: green; font-weight: bold;"></p>
-</section>
+    <p id="specialMessage" style="color: var(--accent); font-weight: bold; margin-top: 20px;"></p>
+  </section>
 
-  <footer>
-    &copy; 2025 Phoequills | Designed by Ellen Icon | All rights reserved.
+  <footer class="animated">
+    <div class="social-links">
+      <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="#" target="_blank"><i class="fab fa-wattpad"></i></a>
+      <a href="#" target="_blank"><i class="fab fa-goodreads"></i></a>
+    </div>
+    <p>&copy; 2025 Phoequills | Designed by Ellen Icon | All rights reserved.</p>
+    <p style="margin-top: 10px; font-size: 0.9rem;">Phoequills - Where Stories Rise from Ashes</p>
   </footer>
-<script>
-  const form = document.getElementById("order-form");
-  const couponInput = document.getElementById("coupon");
-  const message = document.getElementById("specialMessage");
 
-  form.addEventListener("submit", function(event) {
-    const coupon = couponInput.value.trim().toLowerCase();
+  <script>
+    // Dark Mode Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
 
-    if (coupon === "ellenfriend005") {
-      message.textContent = "🎉 Welcome,Golden Pass Winner, You got another 50% off ! .";
-    } else {
-      message.textContent = "";
+    // Check for saved user preference
+    if (localStorage.getItem('darkMode') === 'enabled') {
+      body.classList.add('dark-mode');
     }
-  });
-</script>
-<script>
-  // Set the deadline date/time here:
-  var deadline = new Date("August 10, 2025 23:59:59").getTime();
 
-  var countdown = setInterval(function() {
-    var now = new Date().getTime();
-    var t = deadline - now;
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      
+      // Save user preference
+      if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('darkMode', 'enabled');
+      } else {
+        localStorage.setItem('darkMode', 'disabled');
+      }
+    });
 
-    if (t >= 0) {
-      var days = Math.floor(t / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((t % (1000 * 60)) / 1000);
+    // Mobile Menu Toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
 
-      document.getElementById("countdown").innerHTML =
-        "⏳ Offer ends in: " + days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-    } else {
-      clearInterval(countdown);
-      document.getElementById("countdown").innerHTML = "🔥 Offer expired!";
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.add('active');
+    });
+
+    closeMenu.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+    });
+
+    // Close mobile menu when clicking on a link
+    const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+      });
+    });
+
+    // Register Modal
+    const registerBtn = document.getElementById('registerBtn');
+    const mobileRegisterBtn = document.getElementById('mobileRegisterBtn');
+    const registerModal = document.getElementById('registerModal');
+    const closeRegisterModal = document.getElementById('closeRegisterModal');
+
+    registerBtn.addEventListener('click', () => {
+      registerModal.style.display = 'flex';
+    });
+
+    mobileRegisterBtn.addEventListener('click', () => {
+      registerModal.style.display = 'flex';
+      mobileMenu.classList.remove('active');
+    });
+
+    closeRegisterModal.addEventListener('click', () => {
+      registerModal.style.display = 'none';
+    });
+
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+      if (e.target === registerModal) {
+        registerModal.style.display = 'none';
+      }
+    });
+
+    // Order Mobile Button
+    const orderMobileBtn = document.getElementById('orderMobileBtn');
+    orderMobileBtn.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+      window.location.href = '#order-section';
+    });
+
+    // Coupon Code Validation
+    const form = document.getElementById("order-form");
+    const couponInput = document.querySelector("input[name='coupon']");
+    const message = document.getElementById("specialMessage");
+
+    form.addEventListener("submit", function(event) {
+      const coupon = couponInput.value.trim().toLowerCase();
+
+      if (coupon === "ellenfriend005") {
+        message.textContent = "🎉 Welcome, Golden Pass Winner! You got an additional 50% off!";
+        event.preventDefault(); // For demo purposes, we prevent form submission
+      } else if (coupon) {
+        message.textContent = "⚠️ Invalid coupon code";
+        event.preventDefault();
+      } else {
+        message.textContent = "";
+      }
+    });
+
+    // Countdown Timer
+    function updateCountdown() {
+      const deadline = new Date("August 10, 2025 23:59:59").getTime();
+      const now = new Date().getTime();
+      const t = deadline - now;
+
+      if (t >= 0) {
+        const days = Math.floor(t / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((t % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML = 
+          `⏳ Offer ends in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      } else {
+        document.getElementById("countdown").innerHTML = "🔥 Offer expired!";
+        clearInterval(countdownInterval);
+      }
     }
-  }, 1000);
-</script>
 
+    // Update countdown every second
+    updateCountdown();
+    const countdownInterval = setInterval(updateCountdown, 1000);
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Animate elements when they come into view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
+    });
+  </script>
 </body>
 </html>
