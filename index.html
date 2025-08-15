@@ -6,7 +6,7 @@
   <title>Phoequills | Where Stories Rise from Ashes</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
@@ -122,7 +122,7 @@
 
     .logo {
       font-family: 'Cinzel', serif;
-      font-weight: 700;
+      font-weight: 500; /* Changed from 700 to 500 for thinner look */
       font-size: 1.5rem;
       color: var(--primary);
       text-decoration: none;
@@ -252,7 +252,7 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* Dark Mode Toggle */
+    /* Dark Mode Toggle - Updated for better alignment */
     .theme-toggle {
       position: relative;
       width: 50px;
@@ -263,6 +263,7 @@
       cursor: pointer;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       padding: 0 5px;
       transition: var(--transition);
     }
@@ -272,30 +273,27 @@
     }
 
     .theme-toggle i {
-      position: absolute;
-      font-size: 16px;
+      font-size: 14px;
       color: white;
       transition: var(--transition);
-    }
-
-    .fa-sun {
+      position: static;
       opacity: 1;
-      left: 5px;
+      transform: none;
     }
 
-    .dark-mode .fa-sun {
+    .dark-mode .theme-toggle .fa-sun {
       opacity: 0;
-      left: -10px;
+      transform: translateX(-10px);
     }
 
-    .fa-moon {
+    .theme-toggle .fa-moon {
       opacity: 0;
-      right: 5px;
+      transform: translateX(10px);
     }
 
-    .dark-mode .fa-moon {
+    .dark-mode .theme-toggle .fa-moon {
       opacity: 1;
-      right: -10px;
+      transform: translateX(0);
     }
 
     .toggle-ball {
@@ -306,6 +304,7 @@
       border-radius: 50%;
       left: 3px;
       transition: var(--transition);
+      z-index: 2;
     }
 
     .dark-mode .toggle-ball {
@@ -777,6 +776,7 @@
       color: var(--primary);
       font-size: 1.5rem;
       transition: var(--transition);
+      text-decoration: none;
     }
 
     .dark-mode .social-links a {
@@ -818,11 +818,11 @@
       header h1 {
         font-size: 3.5rem;
       }
-      
+
       .tagline {
         font-size: 1.3rem;
       }
-      
+
       section h2 {
         font-size: 2.5rem;
       }
@@ -832,23 +832,23 @@
       .nav-links {
         display: none;
       }
-      
+
       .hamburger {
         display: block;
       }
-      
+
       header h1 {
         font-size: 3rem;
       }
-      
+
       .tagline {
         font-size: 1.2rem;
       }
-      
+
       section {
         padding: 60px 20px;
       }
-      
+
       section h2 {
         font-size: 2.2rem;
       }
@@ -858,15 +858,15 @@
       header h1 {
         font-size: 2.5rem;
       }
-      
+
       .tagline {
         font-size: 1.1rem;
       }
-      
+
       section h2 {
         font-size: 2rem;
       }
-      
+
       .btn {
         padding: 12px 25px;
       }
@@ -965,7 +965,7 @@
       <div class="book">
         <h3>Shadow Love</h3>
         <p>A love story born in darkness, tested by fate, and held together by two souls who refused to give up. Inspired by true events, Shadow Love captures raw emotion and real connection.</p>
-        <a href="#" class="btn-outline">Learn More</a>
+        <a href="shadow-love.html" class="btn-outline">Learn More</a>
       </div>
       <div class="book">
         <h3>The Dying Detective</h3>
@@ -1029,8 +1029,8 @@ Lives on in light, and always in you.
     <div class="contact-info">
       <p><i class="fas fa-envelope"></i> <strong>Email:</strong> <a href="mailto:elisapravin@gmail.com">elisapravin@gmail.com</a></p>
       <p><i class="fab fa-instagram"></i> <strong>Instagram:</strong> <a href="https://instagram.com/pravin_s_elisa" target="_blank">@pravin_s_elisa</a></p>
-      <p><i class="fab fa-twitter"></i> <strong>Twitter:</strong> <a href="https://twitter.com/example" target="_blank">@ellenicon_writes</a></p>
-      <p><i class="fab fa-wattpad"></i> <strong>Wattpad:</strong> <a href="https://wattpad.com/example" target="_blank">Phoequills</a></p>
+      <p><i class="fab fa-twitter"></i> <strong>Twitter:</strong> <a href="https://twitter.com/ellenicon_writes" target="_blank">@ellenicon_writes</a></p>
+      <p><i class="fab fa-wattpad"></i> <strong>Wattpad:</strong> <a href="https://wattpad.com/user/Phoequills" target="_blank">Phoequills</a></p>
     </div>
   </section>
 
@@ -1058,10 +1058,10 @@ Lives on in light, and always in you.
 
   <footer class="animated">
     <div class="social-links">
-      <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-      <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
-      <a href="#" target="_blank"><i class="fab fa-wattpad"></i></a>
-      <a href="#" target="_blank"><i class="fab fa-goodreads"></i></a>
+      <a href="https://instagram.com/pravin_s_elisa" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://twitter.com/ellenicon_writes" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://wattpad.com/user/Phoequills" target="_blank"><i class="fab fa-wattpad"></i></a>
+      <a href="https://goodreads.com/ellenicon" target="_blank"><i class="fab fa-goodreads"></i></a>
     </div>
     <p>&copy; 2025 Phoequills | Designed by Ellen Icon | All rights reserved.</p>
     <p style="margin-top: 10px; font-size: 0.9rem;">Phoequills - Where Stories Rise from Ashes</p>
@@ -1079,7 +1079,7 @@ Lives on in light, and always in you.
 
     themeToggle.addEventListener('click', () => {
       body.classList.toggle('dark-mode');
-      
+
       // Save user preference
       if (body.classList.contains('dark-mode')) {
         localStorage.setItem('darkMode', 'enabled');
@@ -1161,9 +1161,9 @@ Lives on in light, and always in you.
       }
     });
 
-    // Countdown Timer
+    // Countdown Timer - Updated to September 30th
     function updateCountdown() {
-      const deadline = new Date("August 10, 2025 23:59:59").getTime();
+      const deadline = new Date("September 30, 2025 23:59:59").getTime();
       const now = new Date().getTime();
       const t = deadline - now;
 
@@ -1189,10 +1189,10 @@ Lives on in light, and always in you.
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
-        
+
         const targetId = this.getAttribute('href');
         if (targetId === '#') return;
-        
+
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
           window.scrollTo({
